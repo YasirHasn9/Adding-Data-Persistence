@@ -40,8 +40,23 @@ router.get("/:id/tasks", async (req, res, next) => {
   try {
     const project = await ProjectsDb.findBy(req.params.id);
     if (project) {
-      const tasks = await ProjectsDb.tasks(req.params.id);
+      const tasks = await ProjectsDb.findTasks(req.params.id);
       res.json(tasks);
+    } else {
+      res.status(401).json({
+        message: "Project not found"
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+router.post("/:id/tasks/", async (req, res, next) => {
+  try {
+    const project = await ProjectsDb.findBy(req.params.id);
+    if (project) {
+      const task = await ProjectsDb.addTask(req.body);
+      res.json(task);
     } else {
       res.status(401).json({
         message: "Project not found"

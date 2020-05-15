@@ -4,7 +4,8 @@ module.exports = {
   find,
   add,
   findBy,
-  tasks
+  findTasks,
+  addTask
 };
 
 function find() {
@@ -24,8 +25,15 @@ async function findBy(id) {
     .first();
 }
 
-function tasks(project_id) {
+function findTasks(project_id) {
   return db("tasks as t")
     .join("projects as p", "t.project_id", "p.id")
     .where({ project_id });
+}
+
+async function addTask(task) {
+  const [id] = await db("tasks").insert(task);
+  return db("tasks")
+    .where({ id })
+    .first();
 }

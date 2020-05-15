@@ -51,7 +51,7 @@ router.get("/:id/tasks", async (req, res, next) => {
     next(err);
   }
 });
-router.post("/:id/tasks/", async (req, res, next) => {
+router.post("/:id/tasks", async (req, res, next) => {
   try {
     const project = await ProjectsDb.findBy(req.params.id);
     if (project) {

@@ -8,8 +8,8 @@ function find() {
   return db("resources");
 }
 
-async function add(project) {
-  const [id] = await db("resources").insert(project);
+async function add(resource) {
+  const [id] = await db("resources").insert(resource);
   return db("resources")
     .where({ id })
     .first();

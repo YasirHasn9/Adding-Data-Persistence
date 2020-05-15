@@ -2,7 +2,8 @@ const db = require("../../data/config");
 
 module.exports = {
   find,
-  add
+  add,
+  findBy
 };
 
 function find() {
@@ -12,6 +13,12 @@ function find() {
 async function add(project) {
   const [id] = await db("projects").insert(project);
   return db("projects")
+    .where({ id })
+    .first();
+}
+
+async function findBy(id) {
+  return await db("projects")
     .where({ id })
     .first();
 }

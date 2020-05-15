@@ -1,10 +1,12 @@
-const router = require("express").Router();
+const router = require("express").Router({
+  mergeParams: true
+});
 const taskDb = require("./model");
 
 router.get("/", async (req, res, next) => {
   try {
-    const projects = await taskDb.find();
-    res.json(projects);
+    const tasks = await taskDb.find();
+    res.json(tasks);
   } catch (err) {
     next(err);
   }

@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/YasirHasn9/Adding-Data-Persistence/issues"
   },
-  "homepage": "https://github.com/YasirHasn9/Adding-Data-Persistence#readme"
+  "homepage": "https://github.com/YasirHasn9/Adding-Data-Persistence#readme",
+  "dependencies": {
+    "knex": "^0.21.1",
+    "sqlite3": "^4.2.0"
+  }
 }

@@ -3,7 +3,6 @@ const router = require("express").Router({
 });
 const ProjectsDb = require("./model");
 
-
 router.get("/", async (req, res, next) => {
   try {
     const projects = await ProjectsDb.find();
@@ -22,19 +21,35 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// router.get("/:id", async (req, res, next) => {
-//   try {
-//     const project = await ProjectsDb.findBy(req.params.id);
-//     if (project) {
-//       res.json(project);
-//     } else {
-//       res.status(401).json({
-//         message: "Project not found"
-//       });
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+router.get("/:id", async (req, res, next) => {
+  try {
+    const project = await ProjectsDb.findBy(req.params.id);
+    if (project) {
+      res.json(project);
+    } else {
+      res.status(401).json({
+        message: "Project not found"
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:id/tasks", async (req, res, next) => {
+  try {
+    const project = await ProjectsDb.findBy(req.params.id);
+    if (project) {
+      const tasks = await ProjectsDb.tasks(req.params.id);
+      res.json(tasks);
+    } else {
+      res.status(401).json({
+        message: "Project not found"
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
